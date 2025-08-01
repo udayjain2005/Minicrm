@@ -24,6 +24,7 @@
     <Compile Include="Minicrm.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="requirements.txt" />
     <Content Include="static\css\style.css" />
     <Content Include="templates\analytics.html" />
     <Content Include="templates\audit_log.html" />
