@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniCRM</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-title">MiniCRM</div>
+        <ul class="sidebar-menu">
+            <li><a href="{{ url_for('index') }}" class="menu-section{% if request.endpoint == 'index' %} active{% endif %}">Organizations</a></li>
+            <li><a href="{{ url_for('projects') }}" class="menu-section{% if request.endpoint == 'projects' %} active{% endif %}">Projects</a></li>
+            <li><a href="{{ url_for('analytics') }}" class="menu-section{% if request.endpoint == 'analytics' %} active{% endif %}">Analytics</a></li>
+            <li><a href="{{ url_for('masters') }}" class="menu-section{% if request.endpoint == 'masters' %} active{% endif %}">Masters</a></li>
+            <li><a href="{{ url_for('audit_log') }}" class="menu-section{% if request.endpoint == 'audit_log' %} active{% endif %}">Audit Log</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header-bar">
+            <span class="header-title">MiniCRM - Professional Edition</span>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

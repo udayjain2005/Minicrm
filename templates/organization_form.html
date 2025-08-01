@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-container">
+    <h2>{{ 'Edit' if org else 'Add' }} Organization</h2>
+    <form method="post" class="entity-form">
+        <label>Name</label>
+        <input type="text" name="name" value="{{ org.name if org else '' }}" required>
+        <label>Country</label>
+        <select name="country" required>
+            <option value="">Select Country</option>
+            {% for country in countries %}
+                <option value="{{ country.name }}" {% if org and org.country == country.name %}selected{% endif %}>{{ country.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Created At</label>
+        <input type="text" value="{{ org.created_at.strftime('%Y-%m-%d %H:%M') if org else 'Auto-generated' }}" readonly>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

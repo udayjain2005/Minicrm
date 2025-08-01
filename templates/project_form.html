@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-container">
+    <h2>{{ 'Edit' if project else 'Add' }} Project</h2>
+    <form method="post" class="entity-form">
+        <label>Name</label>
+        <input type="text" name="name" value="{{ project.name if project else '' }}" required>
+        <label>Sector</label>
+        <select name="sector" required>
+            <option value="">Select Sector</option>
+            {% for sector in sectors %}
+                <option value="{{ sector.name }}" {% if project and project.sector == sector.name %}selected{% endif %}>{{ sector.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Created At</label>
+        <input type="text" value="{{ project.created_at.strftime('%Y-%m-%d %H:%M') if project else 'Auto-generated' }}" readonly>
+        <label>Organization</label>
+        {% if orgs %}
+        <select name="organization_id" required>
+            {% for org in orgs %}
+                <option value="{{ org.id }}" {% if project and project.organization_id == org.id %}selected{% endif %}>{{ org.name }}</option>
+            {% endfor %}
+        </select>
+        {% elif org %}
+        <input type="text" value="{{ org.name }}" readonly>
+        {% endif %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

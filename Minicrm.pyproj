@@ -23,6 +23,18 @@
   <ItemGroup>
     <Compile Include="Minicrm.py" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="static\css\style.css" />
+    <Content Include="templates\analytics.html" />
+    <Content Include="templates\audit_log.html" />
+    <Content Include="templates\base.html" />
+    <Content Include="templates\bulk_upload.html" />
+    <Content Include="templates\index.html" />
+    <Content Include="templates\masters.html" />
+    <Content Include="templates\organization_form.html" />
+    <Content Include="templates\projects.html" />
+    <Content Include="templates\project_form.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
        Visual Studio and specify your pre- and post-build commands in

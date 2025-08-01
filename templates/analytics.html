@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="list-header">
+    <h1>Analytics</h1>
+    <form method="get" class="filter-form">
+        <input type="text" name="org_filter" placeholder="Organization Name" value="{{ org_filter }}">
+        <input type="text" name="project_filter" placeholder="Project Name" value="{{ project_filter }}">
+        <input type="text" name="sector_filter" placeholder="Sector" value="{{ sector_filter }}">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+</div>
+<div class="org-list-container">
+    <h2>Summary</h2>
+    <ul>
+        <li>Total Organizations: {{ total_orgs }}</li>
+        <li>Total Projects: {{ total_projects }}</li>
+        <li>Projects by Sector:</li>
+        <ul>
+        {% for sector, count in sector_counts.items() %}
+            <li>{{ sector }}: {{ count }}</li>
+        {% endfor %}
+        </ul>
+        <li>Projects by Country:</li>
+        <ul>
+        {% for country, count in country_counts.items() %}
+            <li>{{ country }}: {{ count }}</li>
+        {% endfor %}
+        </ul>
+    </ul>
+    <canvas id="sectorChart" width="400" height="200"></canvas>
+    <canvas id="countryChart" width="400" height="200"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var sectorData = {{ sector_counts|tojson }};
+    var countryData = {{ country_counts|tojson }};
+    var ctx1 = document.getElementById('sectorChart').getContext('2d');
+    var ctx2 = document.getElementById('countryChart').getContext('2d');
+    new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(sectorData),
+            datasets: [{ label: 'Projects by Sector', data: Object.values(sectorData), backgroundColor: '#3b82f6' }]
+        }
+    });
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(countryData),
+            datasets: [{ label: 'Projects by Country', data: Object.values(countryData), backgroundColor: '#2563eb' }]
+        }
+    });
+</script>
+{% endblock %}
